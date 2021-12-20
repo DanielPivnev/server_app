@@ -24,8 +24,10 @@
 НАРУШЕНИЕ обозначенных условий - задание не выполнено!!!
 """
 
+from chardet import detect
+
 with open('test_file.txt', 'rb') as f:
-    lines = [line.decode('utf-8') for line in f.readlines()]
+    lines = [line.decode(detect(line)['encoding']).encode('utf-8').decode('utf-8') for line in f.readlines()]
 
     for line in lines:
         print(line)
