@@ -1,0 +1,60 @@
+{
+    "orders": [
+        {
+            "product": "принтер",
+            "quantity": 10,
+            "price": 6700,
+            "costumer": "Ivanov I.I.",
+            "date": "24.09.2017"
+        },
+        {
+            "product": "scaner",
+            "quantity": 20,
+            "price": 10000,
+            "costumer": "Petrov P.P.",
+            "date": "11.01.2018"
+        },
+        {
+            "product": "scaner",
+            "quantity": 20,
+            "price": 10000,
+            "costumer": "Petrov P.P.",
+            "date": "11.01.2018"
+        },
+        {
+            "product": "scaner",
+            "quantity": 20,
+            "price": 10000,
+            "costumer": "Petrov P.P.",
+            "date": "11.01.2018"
+        },
+        {
+            "product": "принтер",
+            "quantity": 10,
+            "price": 6700,
+            "costumer": "Ivanov I.I.",
+            "date": "24.09.2017"
+        },
+        {
+            "product": "scaner",
+            "quantity": 20,
+            "price": 10000,
+            "costumer": "Petrov P.P.",
+            "date": "11.01.2018"
+        },
+        {
+            "product": "scaner",
+            "quantity": 20,
+            "price": 10000,
+            "costumer": "Petrov P.P.",
+            "date": "11.01.2018"
+        },
+        {
+            "product": "scaner",
+            "quantity": 20,
+            "price": 10000,
+            "costumer": "Petrov P.P.",
+            "date": "11.01.2018"
+        }
+    ]
+}
