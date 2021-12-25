@@ -77,7 +77,7 @@ def write_order_to_json(product, quantity, price, costumer, date):
         data['orders'].append(order)
 
         with open('orders.json', 'w', encoding='utf-8') as file:
-            json.dump(data, file)
+            json.dump(data, file, indent=4, ensure_ascii=False)
 
 
 def main(prods):
