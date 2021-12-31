@@ -1,8 +1,7 @@
 import time
 from socket import AF_INET, SOCK_STREAM, socket
 
-from Messenger.Common.Settings import DEFAULT_PORT, DEFAULT_LISTEN_ADDR, DEFAULT_QUEUE_LENGTH, ACTION, ACCOUNT_NAME, \
-    TIME, USER, RESPONSE, PRESENCE, ERROR, DEFAULT_IP_ADDR
+from Messenger.Common.Settings import DEFAULT_PORT, ACTION, ACCOUNT_NAME, TIME, USER, PRESENCE, DEFAULT_IP_ADDR
 from Messenger.Common.Utils import receive, send
 
 
@@ -27,7 +26,7 @@ def main():
     answer = receive(client)
 
     print(answer)
-
+    input('...')
     client.close()
 
 

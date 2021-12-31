@@ -14,8 +14,17 @@ DEFAULT_ENCODING = 'utf-8'
 ACTION = 'action'
 TIME = 'time'
 USER = 'user'
-ACCOUNT_NAME = 'account_name'
 
 PRESENCE = 'presence'
+REGISTER = 'register'
+AUTHENTICATE = 'authenticate'
+QUITE = 'quite'
+
+EMAIL = 'email'
+PASSWORD = 'password'
+ACCOUNT_NAME = 'account_name'
+
 RESPONSE = 'response'
+ALERT = 'alert'
 ERROR = 'error'
+
