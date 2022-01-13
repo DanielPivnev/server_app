@@ -1,8 +1,8 @@
 import time
 from socket import AF_INET, SOCK_STREAM, socket
 
-from messenger.common.settings import DEFAULT_PORT, DEFAULT_LISTEN_ADDR, DEFAULT_QUEUE_LENGTH, ACTION, ACCOUNT_NAME, \
-    TIME, USER, RESPONSE, PRESENCE, ERROR, DEFAULT_IP_ADDR, HTTP_200_OK, ALERT
+from messenger.common.settings import DEFAULT_PORT, ACTION, ACCOUNT_NAME, TIME, USER, RESPONSE, PRESENCE, ERROR, \
+    DEFAULT_IP_ADDR, HTTP_200_OK, ALERT, HTTP_400_BAD_REQUEST
 from messenger.common.utils import receive, send
 
 
@@ -19,9 +19,9 @@ def create_presence(account_name='Guest'):
 
 
 def process_answer(msg):
-    if RESPONSE in msg and msg[RESPONSE] == HTTP_200_OK:
+    if RESPONSE in msg and ALERT in msg and msg[RESPONSE] == HTTP_200_OK:
         return f'{msg[RESPONSE]} {msg[ALERT]}'
-    elif RESPONSE in msg and ERROR in msg:
+    elif RESPONSE in msg and ERROR in msg and msg[RESPONSE] == HTTP_400_BAD_REQUEST:
         return f'{msg[RESPONSE]} {msg[ERROR]}'
     else:
         raise ValueError

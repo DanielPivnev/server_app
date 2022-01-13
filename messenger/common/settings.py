@@ -15,9 +15,11 @@ ACTION = 'action'
 TIME = 'time'
 USER = 'user'
 ACCOUNT_NAME = 'account_name'
-HTTP_200_OK = '200'
 
 PRESENCE = 'presence'
 RESPONSE = 'response'
 ERROR = 'error'
 ALERT = 'alert'
+
+HTTP_200_OK = 200
+HTTP_400_BAD_REQUEST = 400
