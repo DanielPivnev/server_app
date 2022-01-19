@@ -23,3 +23,6 @@ ALERT = 'alert'
 
 HTTP_200_OK = 200
 HTTP_400_BAD_REQUEST = 400
+
+CLIENT_LOG_NAME = 'client'
+SERVER_LOG_NAME = 'server'

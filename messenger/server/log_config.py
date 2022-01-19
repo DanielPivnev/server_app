@@ -1,13 +1,16 @@
 import logging
 from logging import handlers
 
+from messenger.common.settings import SERVER_LOG_NAME
 
-fmt = logging.Formatter('%(asctime)s %(levelname)s %(module)s %(message)s')
 
-server_handler = handlers.TimedRotatingFileHandler('server.log', 'midnight', 1, utc=False)
-server_handler.setFormatter(fmt)
-server_handler.setLevel(logging.INFO)
+def create_server_log():
+    fmt = logging.Formatter('%(asctime)s %(levelname)s %(module)s %(message)s')
 
-log = logging.getLogger('server')
+    server_handler = handlers.TimedRotatingFileHandler(f'{SERVER_LOG_NAME}.log', 'midnight', 1, utc=False)
+    server_handler.setFormatter(fmt)
+    server_handler.setLevel(logging.DEBUG)
 
-log.addHandler(server_handler)
+    log = logging.getLogger(SERVER_LOG_NAME)
+
+    log.addHandler(server_handler)
