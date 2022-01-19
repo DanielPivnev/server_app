@@ -22,6 +22,7 @@ def main():
             client, addr = server.accept()
             message = receive(client)
             response = process_message(message)
+            print(response)
             send(client, response)
     finally:
         server.close()
