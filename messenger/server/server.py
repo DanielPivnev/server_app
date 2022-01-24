@@ -8,7 +8,7 @@ from messenger.common.utils import Courier
 from messenger.common.decos import log
 
 
-@log(SERVER_LOG_NAME)
+@log
 def process_message(message):
     if ACTION in message and TIME in message and USER in message and message[USER][ACCOUNT_NAME] == 'Guest' \
             and message[ACTION] == PRESENCE:

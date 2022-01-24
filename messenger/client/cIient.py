@@ -9,7 +9,7 @@ from messenger.common.utils import Courier
 from messenger.common.decos import log
 
 
-@log(CLIENT_LOG_NAME)
+@log
 def create_presence(account_name='Guest'):
     response = {
         ACTION: PRESENCE,
@@ -22,7 +22,7 @@ def create_presence(account_name='Guest'):
     return response
 
 
-@log(CLIENT_LOG_NAME)
+@log
 def process_answer(msg):
     if RESPONSE in msg and ALERT in msg and msg[RESPONSE] == HTTP_200_OK:
         return f'{msg[RESPONSE]} {msg[ALERT]}'
