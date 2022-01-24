@@ -1,8 +1,8 @@
 import time
 import logging
+import messenger.logs.client_log_config
 from socket import AF_INET, SOCK_STREAM, socket
 
-from messenger.client.log_config import create_client_log
 from messenger.common.settings import DEFAULT_PORT, ACTION, ACCOUNT_NAME, TIME, USER, RESPONSE, PRESENCE, ERROR, \
     DEFAULT_IP_ADDR, HTTP_200_OK, ALERT, HTTP_400_BAD_REQUEST, CLIENT_LOG_NAME
 from messenger.common.utils import receive, send
@@ -34,7 +34,6 @@ def process_answer(msg, log):
 
 
 def main():
-    create_client_log()
     log = logging.getLogger(CLIENT_LOG_NAME)
 
     client = socket(AF_INET, SOCK_STREAM)
