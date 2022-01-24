@@ -5,10 +5,12 @@ from socket import AF_INET, SOCK_STREAM, socket
 
 from messenger.common.settings import DEFAULT_PORT, ACTION, ACCOUNT_NAME, TIME, USER, RESPONSE, PRESENCE, ERROR, \
     DEFAULT_IP_ADDR, HTTP_200_OK, ALERT, HTTP_400_BAD_REQUEST, CLIENT_LOG_NAME
-from messenger.common.utils import receive, send
+from messenger.common.utils import Courier
+from messenger.common.decos import log
 
 
-def create_presence(log, account_name='Guest'):
+@log(CLIENT_LOG_NAME)
+def create_presence(account_name='Guest'):
     response = {
         ACTION: PRESENCE,
         TIME: time.time(),
@@ -17,38 +19,36 @@ def create_presence(log, account_name='Guest'):
         }
     }
 
-    log.debug('created presence')
-
     return response
 
 
-def process_answer(msg, log):
+@log(CLIENT_LOG_NAME)
+def process_answer(msg):
     if RESPONSE in msg and ALERT in msg and msg[RESPONSE] == HTTP_200_OK:
-        log.debug(f'{msg[RESPONSE]} {msg[ALERT]}')
         return f'{msg[RESPONSE]} {msg[ALERT]}'
     elif RESPONSE in msg and ERROR in msg and msg[RESPONSE] == HTTP_400_BAD_REQUEST:
-        log.debug(f'{msg[RESPONSE]} {msg[ERROR]}')
         return f'{msg[RESPONSE]} {msg[ERROR]}'
     else:
         raise ValueError
 
 
 def main():
-    log = logging.getLogger(CLIENT_LOG_NAME)
+    courier = Courier(CLIENT_LOG_NAME)
+    logger = logging.getLogger(CLIENT_LOG_NAME)
 
     client = socket(AF_INET, SOCK_STREAM)
     client.connect((DEFAULT_IP_ADDR, DEFAULT_PORT))
 
     try:
-        presence_message = create_presence(log)
-        send(client, presence_message, CLIENT_LOG_NAME)
-        answer = receive(client, CLIENT_LOG_NAME)
+        presence_message = create_presence()
+        courier.send(client, presence_message)
+        answer = courier.receive(client)
 
-        response = process_answer(answer, log)
+        response = process_answer(answer)
 
-        log.info(f'{response}')
+        logger.info(f'{response}')
     except ValueError as e:
-        log.error(e)
+        logger.error(e)
 
     client.close()
 

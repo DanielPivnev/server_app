@@ -1,24 +1,30 @@
 import json
-import logging
 
 from messenger.common.settings import DEFAULT_ENCODING, DEFAULT_MAX_PACKAGE_LENGTH
+from decos import log
 
 
-def send(sock, message, log_name, to_addr='server'):
-    message = json.dumps(message)
-    message = message.encode(DEFAULT_ENCODING)
-    sock.send(message)
-    log = logging.getLogger(log_name)
-    log.info(f'message "{message}" sent to {to_addr}')
+class Courier:
+    def __init__(self, log_name):
+        self.log_name = log_name
 
+    def send(self, sock, message):
+        @log(self.log_name)
+        def send2(socket, msg):
+            msg = json.dumps(msg)
+            msg = msg.encode(DEFAULT_ENCODING)
+            socket.send(msg)
 
-def receive(sock, log_name, to_addr='server'):
-    message = sock.recv(DEFAULT_MAX_PACKAGE_LENGTH)
+        send2(sock, message)
 
-    message = message.decode(DEFAULT_ENCODING)
-    message = json.loads(message)
+    def receive(self, socket):
+        @log(self.log_name)
+        def receive2(sock):
+            message = sock.recv(DEFAULT_MAX_PACKAGE_LENGTH)
 
-    log = logging.getLogger(log_name)
-    log.info(f'message "{message}" received from {to_addr}')
+            message = message.decode(DEFAULT_ENCODING)
+            message = json.loads(message)
 
-    return message
+            return message
+
+        return receive2(socket)
