@@ -17,7 +17,9 @@ USER = 'user'
 ACCOUNT_NAME = 'account_name'
 
 PRESENCE = 'presence'
+MESSAGE = 'message'
 RESPONSE = 'response'
+MESSAGE_TEXT = 'message_text'
 ERROR = 'error'
 ALERT = 'alert'
 
