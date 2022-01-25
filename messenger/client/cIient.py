@@ -5,14 +5,22 @@ import logging
 import messenger.logs.client_log_config
 from socket import AF_INET, SOCK_STREAM, socket
 
-from messenger.common.errors import MissingArgument
+from messenger.common.errors import MissingArgument, ClientExit
 from messenger.common.settings import DEFAULT_PORT, ACTION, ACCOUNT_NAME, TIME, USER, RESPONSE, PRESENCE, ERROR, \
-    DEFAULT_IP_ADDR, HTTP_200_OK, ALERT, HTTP_400_BAD_REQUEST, CLIENT_LOG_NAME, MESSAGE, MESSAGE_TEXT
+    DEFAULT_IP_ADDR, HTTP_200_OK, ALERT, HTTP_400_BAD_REQUEST, CLIENT_LOG_NAME, MESSAGE, MESSAGE_TEXT, SENDER
 from messenger.common.utils import Courier
 from messenger.common.decos import log
 
-
 logger = logging.getLogger(CLIENT_LOG_NAME)
+
+
+@log
+def message_from_server(msg):
+    if ACTION in msg and msg[ACTION] == MESSAGE and SENDER in msg and msg[SENDER] and MESSAGE_TEXT in msg and \
+            msg[MESSAGE_TEXT]:
+        print(msg[MESSAGE_TEXT])
+    else:
+        raise ValueError
 
 
 @log
@@ -20,8 +28,7 @@ def get_message(client, account_name='Guest'):
     message = input('Enter msg or "!!!" to exit: ')
 
     if message == '!!!':
-        client.close()
-        logger.info('Client exit')
+        raise ClientExit()
 
     message_dict = {
         ACTION: MESSAGE,
@@ -59,7 +66,7 @@ def process_answer(msg):
 @log
 def argument_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-mode', default='listen', nargs='?')
+    parser.add_argument('-m', '--mode', default='listen', nargs='?')
     namespace = parser.parse_args(sys.argv[1:])
     client_mode = namespace.mode
 
@@ -83,22 +90,30 @@ def main():
 
             mode = argument_parser()
             if not mode:
-                raise MissingArgument
-
-            if mode == 'send':
-                courier.send(client, get_message(client))
-            elif mode == 'listen':
-                pass
+                raise MissingArgument('-m or --mode')
 
         except ValueError as e:
+            logger.error(e)
+        except MissingArgument as e:
             logger.error(e)
             sys.exit(1)
         except ConnectionRefusedError as e:
             logger.critical(e)
             sys.exit(1)
-        except MissingArgument as e:
-            logger.error(e)
-            sys.exit(1)
+        else:
+            while True:
+                try:
+                    if mode == 'send':
+                        courier.send(client, get_message(client))
+                    elif mode == 'listen':
+                        message_from_server(courier.receive(client))
+                except (ConnectionResetError, ConnectionError, ConnectionAbortedError) as e:
+                    logger.error(e)
+                except ValueError as e:
+                    logger.error(e)
+                except ClientExit as e:
+                    client.close()
+                    logger.info(e)
 
 
 if __name__ == '__main__':

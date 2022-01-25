@@ -1,1 +1,10 @@
-2022-01-24 19:13:09,599 CRITICAL cIient.py [Errno 61] Connection refused
+2022-01-25 16:09:53,823 CRITICAL cIient.py [Errno 61] Connection refused
+2022-01-25 16:10:46,378 CRITICAL cIient.py [Errno 61] Connection refused
+2022-01-25 16:10:47,749 CRITICAL cIient.py [Errno 61] Connection refused
+2022-01-25 16:11:20,941 CRITICAL cIient.py [Errno 61] Connection refused
+2022-01-25 16:12:26,159 CRITICAL cIient.py [Errno 61] Connection refused
+2022-01-25 16:14:09,553 CRITICAL cIient.py [Errno 61] Connection refused
+2022-01-25 16:14:12,512 CRITICAL cIient.py [Errno 61] Connection refused
+2022-01-25 16:14:38,476 CRITICAL cIient.py [Errno 61] Connection refused
+2022-01-25 16:14:39,665 CRITICAL cIient.py [Errno 61] Connection refused
+2022-01-25 16:14:44,157 CRITICAL cIient.py [Errno 61] Connection refused

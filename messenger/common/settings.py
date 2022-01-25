@@ -14,6 +14,7 @@ DEFAULT_ENCODING = 'utf-8'
 ACTION = 'action'
 TIME = 'time'
 USER = 'user'
+SENDER = 'sender'
 ACCOUNT_NAME = 'account_name'
 
 PRESENCE = 'presence'

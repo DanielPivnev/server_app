@@ -7,6 +7,8 @@ from messenger.common.settings import DEFAULT_PORT, DEFAULT_LISTEN_ADDR, DEFAULT
 from messenger.common.utils import Courier
 from messenger.common.decos import log
 
+logger = logging.getLogger(SERVER_LOG_NAME)
+
 
 @log
 def process_message(message):
@@ -21,8 +23,7 @@ def process_message(message):
 
 
 def main():
-    courier = Courier(SERVER_LOG_NAME)
-    logger = logging.getLogger(SERVER_LOG_NAME)
+    courier = Courier()
 
     server = socket(AF_INET, SOCK_STREAM)
     server.bind((DEFAULT_LISTEN_ADDR, DEFAULT_PORT))
