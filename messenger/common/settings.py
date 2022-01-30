@@ -15,6 +15,7 @@ ACTION = 'action'
 TIME = 'time'
 USER = 'user'
 SENDER = 'sender'
+CLIENT = 'client'
 ACCOUNT_NAME = 'account_name'
 
 PRESENCE = 'presence'

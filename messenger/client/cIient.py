@@ -28,6 +28,7 @@ def get_message(client, account_name='Guest'):
     message = input('Enter msg or "!!!" to exit: ')
 
     if message == '!!!':
+        client.close()
         raise ClientExit()
 
     message_dict = {
@@ -112,7 +113,6 @@ def main():
                 except ValueError as e:
                     logger.error(e)
                 except ClientExit as e:
-                    client.close()
                     logger.info(e)
 
 

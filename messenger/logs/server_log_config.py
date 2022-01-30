@@ -14,5 +14,4 @@ server_handler.setFormatter(fmt)
 server_handler.setLevel(logging.DEBUG)
 
 log = logging.getLogger(SERVER_LOG_NAME)
-
 log.addHandler(server_handler)
