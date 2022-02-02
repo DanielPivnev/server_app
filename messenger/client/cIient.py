@@ -24,11 +24,10 @@ def message_from_server(msg):
 
 
 @log
-def get_message(client, account_name='Guest'):
+def get_message(account_name='Guest'):
     message = input('Enter msg or "!!!" to exit: ')
 
     if message == '!!!':
-        client.close()
         raise ClientExit()
 
     message_dict = {
@@ -102,10 +101,11 @@ def main():
             logger.critical(e)
             sys.exit(1)
         else:
-            while True:
+            client_active = True
+            while client_active:
                 try:
                     if mode == 'send':
-                        courier.send(client, get_message(client))
+                        courier.send(client, get_message())
                     elif mode == 'listen':
                         message_from_server(courier.receive(client))
                 except (ConnectionResetError, ConnectionError, ConnectionAbortedError) as e:
@@ -113,7 +113,10 @@ def main():
                 except ValueError as e:
                     logger.error(e)
                 except ClientExit as e:
+                    client_active = False
                     logger.info(e)
+
+            client.close()
 
 
 if __name__ == '__main__':

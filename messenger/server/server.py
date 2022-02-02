@@ -1,6 +1,4 @@
-import argparse
 import logging
-import sys
 import time
 from socket import AF_INET, SOCK_STREAM, socket
 
@@ -33,7 +31,7 @@ def main():
     server = socket(AF_INET, SOCK_STREAM)
     server.bind((DEFAULT_LISTEN_ADDR, DEFAULT_PORT))
     server.listen(DEFAULT_QUEUE_LENGTH)
-    server.settimeout(0.1)
+    server.settimeout(0.5)
 
     clients, messages = [], []
 
@@ -43,6 +41,7 @@ def main():
         except OSError as e:
             pass
         else:
+            clients.append(client)
             logger.info(f'Connection to {client} is created')
 
         recv_data, send_data, err_data = [], [], []
@@ -56,7 +55,7 @@ def main():
         if recv_data:
             for client in recv_data:
                 try:
-                    response = process_message(courier.receive(server))
+                    response = process_message(courier.receive(client))
                     if RESPONSE in response and response[RESPONSE] == 200:
                         courier.send(client, response)
                     elif RESPONSE in response and response[RESPONSE] == 400:
