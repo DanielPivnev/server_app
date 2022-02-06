@@ -15,11 +15,14 @@ ACTION = 'action'
 TIME = 'time'
 USER = 'user'
 SENDER = 'sender'
-CLIENT = 'client'
+DESTINATION = 'destination'
+
 ACCOUNT_NAME = 'account_name'
 
 PRESENCE = 'presence'
 MESSAGE = 'message'
+EXIT = 'exit'
+
 RESPONSE = 'response'
 MESSAGE_TEXT = 'message_text'
 ERROR = 'error'
